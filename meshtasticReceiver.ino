@@ -4,8 +4,8 @@
  * Requires the heltc library to be in stalled in Ardinuo (search for "Heltec ESP32 Dev-Boards" in the libraery managager) 
  * https://github.com/HelTecAutomation/Heltec_ESP32/
  *
- * But adapted to receive packets from a MicroPython Device using 'ulora.py' libary (so its default Lora Modem settings) 
- * eg a RFM95 device on a RP2040 based 'Lora Challenger device'
+ * This version receives messages transmitted on Meshtastic LongFast settings in the EU_868 region. 
+ * ... needs some other meshtastic device(s) to do the actaul transmission (eg use the RangeTest module) 
  * */
 
 #include "LoRaWan_APP.h"
@@ -24,7 +24,7 @@
 //RF95_FREQ = 869.525   ##meshtastic
 # define RF_FREQUENCY                               869525000 // Hz
 
-#define TX_OUTPUT_POWER                             14        // dBm
+#define TX_OUTPUT_POWER                             14        // dBm  (unused, never transmits) 
 
 // these defines setup to match LongFast on EU_868
 #define LORA_BANDWIDTH                              1         // [0: 125 kHz,  1: 250 kHz,  2: 500 kHz, 3: Reserved]
