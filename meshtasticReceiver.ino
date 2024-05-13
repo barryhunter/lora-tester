@@ -279,7 +279,7 @@ void OnRxDone( uint8_t *payload, uint16_t size, int16_t rssi, int8_t snr )
       Serial.printf("From:%d ID:%d '%s' RSSI:%d SNR:%d\r\n", header_from,header_id, rxpacket, rssi,snr);
 
       //drawStringMaxWidth(int16_t x, int16_t y, uint16_t maxLineWidth, const String &text);
-      factory_display.drawStringMaxWidth(0,0, DISPLAY_WIDTH, fix_latlng((String)rxpacket) + " ID:" + String(header_id));
+      factory_display.drawStringMaxWidth(0,0, DISPLAY_WIDTH, (String)rxpacket + " ID:" + String(header_id));
     }
 
     factory_display.display();
@@ -305,25 +305,3 @@ void display_message(int x, int y, String buffer) {
 }
 
 //////////////////////////////////////////////////////////////////////////
-
-String fix_latlng(String inputString) {
-  int commaIndex = inputString.indexOf(',');
-
-  if (commaIndex == -1 || commaIndex > 16) //doesnt appear to have a lat/long at start
-    return inputString;
-
-  String latString = inputString.substring(0, commaIndex);
-  int spaceIndex = inputString.indexOf(' ',commaIndex);
-
-  String lngString = inputString.substring(commaIndex+1,spaceIndex);
-  String remainingString = inputString.substring(spaceIndex);
-
-    //lat = lat + 1.2785
-    //lon = lon + 2.7235
-
-  //todo, can't reloably detext if fudged. Can say if over say 2, but lng could be -4 so even fudged wiout be below
-  float latNumber = latString.toFloat() - 1.2785;
-  float lngNumber = lngString.toFloat() - 2.7235;
-
-  return String(latNumber,6) + ", " +  String(lngNumber,6) + remainingString;
-}
